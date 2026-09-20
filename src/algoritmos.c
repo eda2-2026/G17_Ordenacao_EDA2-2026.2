@@ -2,22 +2,22 @@
 #include <stdlib.h>
 #include "structs.h"
 
-int* upload(const *char filename, int *size)
+int* upload(const char *filename, int *size)
 {
     FILE *file = fopen(filename, "r");
     if(file == NULL){
         *size = 0;
-        printf("Erro ao ler o arquivo!\size");
-        return NULL
+        printf("Erro ao ler o arquivo!\n");
+        return NULL;
     }
-    int cap = 0;
+    int cap = 10;
     int amount = 0;
     int *array = (int*)malloc(cap*sizeof(int));
     if(array == NULL){
         return NULL;
     }
     int temp;
-    while(fscanf(file, %d, &temp) == 1){
+    while(fscanf(file, "%d", &temp) == 1){
         if(amount >= cap){
             cap *= 2;
             int* temparray = (int*)realloc(array, cap*sizeof(int));
@@ -28,16 +28,16 @@ int* upload(const *char filename, int *size)
             }
             array = temparray;
         }
-        array[amout] = temp;
+        array[amount] = temp;
         amount++;
     }
     fclose(file);
-    *sizeout = amount;
+    *size = amount;
     return (int*)realloc(array, amount*sizeof(int));
 }
 
 
-void shellsort(array[], int size)
+void shellsort(int array[], int size)
 {
     for(int gap = size / 2; gap > 0; gap /= 2){
         for(int i = gap; i<size; i++){
@@ -51,7 +51,7 @@ void shellsort(array[], int size)
     }
 }
 
-void insertionsort(array[], int size)
+void insertionsort(int array[], int size)
 {
     for(int i = 1; i<size; i++){
         int key = array[i];
@@ -64,7 +64,7 @@ void insertionsort(array[], int size)
     }
 }
 
-void selectionsort(array[], int size)
+void selectionsort(int array[], int size)
 {
     for(int i = 0; i<(size-1); i++){
         int min_idx = i;
@@ -86,7 +86,7 @@ void swapping(int* xp, int* yp)
     *yp = temp;
 }
 
-void bubblesort(array[], int size)
+void bubblesort(int array[], int size)
 {
     int i, j;
     bool swap;
@@ -107,20 +107,20 @@ int partition(int array[], int low, int high){
     int pivot = array[high];
     int i = low-1;
     for(int j = low; j <=(high-1); j++){
-        if (array[j] < pivot) {
+        if(array[j] < pivot){
             i++;
             swapping(&array[i], &array[j]);
         }
     }
-    swap(&array[i+1], &array[high]);  
+    swapping(&array[i+1], &array[high]);  
     return i+1;
 }
 
 void quicksort(int array[], int low, int high) {
     if(low < high){
         int pi = partition(array, low, high);
-        quickSort(array, low, (pi-1));
-        quickSort(array, (pi+1), high);
+        quicksort(array, low, (pi-1));
+        quicksort(array, (pi+1), high);
     }
 }
 
@@ -218,10 +218,29 @@ int getMax(int array[], int size)
     return mx;
 }
 
+void countingsortradix(int array[], int size, int exp) {
+    int* ans = (int*)malloc(size * sizeof(int));
+    int now[10] = {0};
+    for(int i = 0; i < size; i++){
+        now[(array[i] / exp) % 10]++;
+    }
+    for(int i = 1; i < 10; i++){
+        now[i] += now[i - 1];
+    }
+    for(int i = size - 1; i >= 0; i--){
+        ans[now[(array[i] / exp) % 10] - 1] = array[i];
+        now[(array[i] / exp) % 10]--;
+    }
+    for(int i = 0; i < size; i++){
+        array[i] = ans[i];
+    }
+    free(ans);
+}
+
 void radixsort(int array[], int size) {
     int m = getMax(array, size); 
     for(int exp = 1; m / exp > 0; exp *= 10){
-        countingsort(array, size, exp);
+        countingsortradix(array, size, exp);
     }
 }
 
