@@ -166,7 +166,7 @@ void insert(Bucket** head, Bucket* now)
     }
 }
 
-void bucketSortListaDinamica(Bucket** head) 
+void bucketsort(Bucket** head) 
 {
     if(*head == NULL || (*head)->prox == NULL) return;
     int high = (*head)->valor;
@@ -187,7 +187,7 @@ void bucketSortListaDinamica(Bucket** head)
     while(now != NULL){
         next = now->prox; 
         int indice_balde = (now->valor * bucketnum) / (high+1);
-        inserirNoOrdenado(&buckets[indice_balde], now);
+        insert(&buckets[indice_balde], now);
         now = next;
     }
     Bucket* newhead = NULL;
