@@ -209,6 +209,25 @@ void bucketsort(Bucket** head)
     *head = newhead; 
 }
 
+void bucketsortTRANSLATE(int array[], int size) {
+    if (size <= 0) return;
+    Bucket* head = NULL;
+    for (int i = size - 1; i >= 0; i--) {
+        Bucket* novo = (Bucket*)malloc(sizeof(Bucket));
+        novo->valor = array[i];
+        novo->prox = head;
+        head = novo;
+    }
+    bucketsort(&head);
+    Bucket* temp = head;
+    for (int i = 0; i < size; i++) {
+        array[i] = temp->valor;
+        Bucket* remover = temp;
+        temp = temp->prox;
+        free(remover); 
+    }
+}
+
 int getMax(int array[], int size) 
 {
     int mx = array[0];
