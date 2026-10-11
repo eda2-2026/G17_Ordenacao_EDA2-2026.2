@@ -206,17 +206,27 @@ int main()
         
         int *array = genVector(); 
         SetTargetFPS(60);
+        
         while (!WindowShouldClose())
         {
                 sortIndex = GetButtonIndex(sortRecs);
+                
                 if (sortIndex >= 1 && sortIndex <= 10) 
                 {
                         runSort(sortIndex, array);
+                        BeginDrawing();
+                        ClearBackground(BLACK);
+                        DrawRecs(sortRecs, RAYWHITE);
+                        DrawSortText(sortText, sortRecs, 20, 20, 40, BLACK);
+                        RenderStableArray(array, RAYWHITE);
+                        EndDrawing();
+                        WaitTime(2.0); 
+                        free(array);
+                        array = genVector();
                 }
 
                 BeginDrawing();
                 ClearBackground(BLACK);
-                
                 DrawRecs(sortRecs, RAYWHITE);
                 DrawSortText(sortText, sortRecs, 20, 20, 40, BLACK);
                 RenderStableArray(array, RAYWHITE);
