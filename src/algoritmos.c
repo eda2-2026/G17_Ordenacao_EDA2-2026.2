@@ -4,6 +4,8 @@
 #include "structs.h"
 #include "raylib.h"
 
+void AtualizaEcraOrdenacao(int array[]);
+
 int* upload(const char *filename, int *size)
 {
     FILE *file = fopen(filename, "r");
@@ -47,8 +49,10 @@ void shellsort(int array[], int size)
             int j;
             for(j = i; j>=gap && array[j - gap] > temp; j-= gap){
                 array[j] = array[j - gap];
+                AtualizaEcraOrdenacao(array);
             }
             array[j] = temp;
+            AtualizaEcraOrdenacao(array);
         }
     }
 }
@@ -60,9 +64,11 @@ void insertionsort(int array[], int size)
         int j = i-1;
         while(j>=0 && array[j]>key){
             array[j+1] = array[j];
+            AtualizaEcraOrdenacao(array);
             j = j-1;
         }
         array[j+1] = key;
+        AtualizaEcraOrdenacao(array);
     }
 }
 
@@ -78,6 +84,7 @@ void selectionsort(int array[], int size)
         int temp = array[i];
         array[i] = array[min_idx];
         array[min_idx] = temp;
+        AtualizaEcraOrdenacao(array);
     }
 }
 
@@ -97,6 +104,7 @@ void bubblesort(int array[], int size)
         for(j = 0; j<(size-i-1); j++){
             if(array[j] > array[j + 1]){
                 swapping(&array[j], &array[j+1]);
+                AtualizaEcraOrdenacao(array);
                 swap = true;
             }
         }
@@ -112,9 +120,11 @@ int partition(int array[], int low, int high){
         if(array[j] < pivot){
             i++;
             swapping(&array[i], &array[j]);
+            AtualizaEcraOrdenacao(array);
         }
     }
     swapping(&array[i+1], &array[high]);  
+    AtualizaEcraOrdenacao(array);
     return i+1;
 }
 
@@ -148,6 +158,7 @@ void countingsort(int array[], int size)
     }
     for(int i = 0; i < size; i++){
         array[i] = ans[i];
+        AtualizaEcraOrdenacao(array);
     }
     free(now);
     free(ans);
@@ -224,6 +235,7 @@ void bucketsortTRANSLATE(int array[], int size) {
     Bucket* temp = head;
     for (int i = 0; i < size; i++) {
         array[i] = temp->valor;
+        AtualizaEcraOrdenacao(array);
         Bucket* remover = temp;
         temp = temp->prox;
         free(remover);
@@ -255,6 +267,7 @@ void countingsortradix(int array[], int size, int exp) {
     }
     for(int i = 0; i < size; i++){
         array[i] = ans[i];
+        AtualizaEcraOrdenacao(array);
     }
     free(ans);
 }
@@ -289,15 +302,18 @@ void merge(int array[], int l, int m, int r)
             array[k] = R[j];
             j++;
         }
+        AtualizaEcraOrdenacao(array);
         k++;
     }
     while(i < n1){
         array[k] = L[i];
+        AtualizaEcraOrdenacao(array);
         i++;
         k++;
     }
     while(j < n2){
         array[k] = R[j];
+        AtualizaEcraOrdenacao(array);
         j++;
         k++;
     }
@@ -328,6 +344,7 @@ void heapify(int array[], int size, int i)
         int temp = array[i];
         array[i] = array[largest];
         array[largest] = temp;
+        AtualizaEcraOrdenacao(array);
         heapify(array, size, largest);
     }
 }
@@ -340,6 +357,7 @@ void heapsort(int array[], int size){
         int temp = array[0];
         array[0] = array[i];
         array[i] = temp;
+        AtualizaEcraOrdenacao(array);
         heapify(array, i, 0);
     }
 }
