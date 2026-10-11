@@ -25,20 +25,22 @@ void RenderOrderedList(int index, Rectangle recs[1000], Color color)
 }
 */
 
-
 int GetButtonIndex(Rectangle rec[3][4])
 {
-        int i = 0, j = 0;
+        int i, j;
+        int buttonId = 1; 
         for (i = 0; i < 3; i++)
         {
                 for (j = 0; j < 4; j++)
                 {
-                        if (CheckCollisionPointRec(GetMousePosition(), rec[i][j]) && IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+                        if (CheckCollisionPointRec(GetMousePosition(), rec[i][j]) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
                         {
-                                           
+                                return buttonId; 
                         }
+                        buttonId++;
                 }
         }
+        return -1;
 }
 
 void runSort (int index, int array[1000])
@@ -166,16 +168,11 @@ int main()
 {
         InitWindow(SCREEN_W, SCREEN_H, "Algoritmos de ordenaçao");
 
-    int size = 0;
-    int opt = 0;
-        int *stableArray = genVector();
         int sortButtons[3][4] = {
         { SELECTION_BTN, INSERTION_BTN, BUBBLE_BTN, QUICK_BTN },
         { BUCKET_BTN, SHELL_BTN, HEAP_BTN, RADIX_BTN },
         { MERGE_BTN, COUNTING_BTN, 0, 0 }
         }; 
-
-//        int sortTwo[2] = { MERGE_BTN, COUNTING_BTN };
 
         Rectangle sortRecs[3][4] = {
         { { 40, 15, 250, 80 }, { 330, 15, 250, 80 }, { 620, 15, 250, 80 }, { 910, 15, 250, 80 } },
@@ -188,49 +185,30 @@ int main()
         {"Bucket","Shell","Heap","Radix"},
         {"Merge","Counting","",""}
         }; 
-        // 0 = none
+
         int sortIndex = -1;
-
-        int i, j = 0;
-        Rectangle recs[1000] = { 0 };
-
-        for (i = 0; i < 1000; i++)
-        {
-                int *vector = genVector();
-                free(vector);
-        }
-        int array[1000];
-
+        
+        int *array = genVector(); 
         SetTargetFPS(60);
         while (!WindowShouldClose())
         {
                 sortIndex = GetButtonIndex(sortRecs);
+                if (sortIndex >= 1 && sortIndex <= 10) 
+                {
+                        runSort(sortIndex, array);
+                }
 
                 BeginDrawing();
                 ClearBackground(BLACK);
                 
                 DrawRecs(sortRecs, RAYWHITE);
                 DrawSortText(sortText, sortRecs, 20, 20, 40, BLACK);
-                if (sortIndex == 0)
-                {
-                        RenderStableArray(array, RAYWHITE);
-                }        
-/*
-                for (i = 0; i < 1000; i++)
-                {
-                        DrawRectangleV((Vector2){ recs[i].x, recs[i].y }, (Vector2){ recs[i].width, recs[i].height }, RAYWHITE);
-                }
-
-*/
-                
-
+                RenderStableArray(array, RAYWHITE);
                 EndDrawing();
-
         }
 
+        free(array);
         CloseWindow();
-        free(stableArray);
 
-
-    return 0;
+        return 0;
 }
