@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "structs.h"
+#include "raylib.h"
 
 int* upload(const char *filename, int *size)
 {
@@ -225,7 +226,8 @@ void bucketsortTRANSLATE(int array[], int size) {
         array[i] = temp->valor;
         Bucket* remover = temp;
         temp = temp->prox;
-        free(remover); 
+        free(remover);
+
     }
 }
 

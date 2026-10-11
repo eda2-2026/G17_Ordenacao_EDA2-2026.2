@@ -8,4 +8,5 @@ make &&
 cd .. &&
 rm raysrc/src/main.c &&
 cp main.c raysrc/src &&
-cp src/* raysrc/resources
+cp algoritmos.c raysrc/src &&
+cp structs.h raysrc/src
