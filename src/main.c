@@ -165,11 +165,19 @@ void RenderStableArray(int array[1000], Color color)
 }
 
 void AtualizaEcraOrdenacao(int array[1000]) {
+    if (WindowShouldClose()) {
+        CloseWindow();
+        exit(0); 
+    }
+    static int contador = 0;
+    contador++;
+    if (contador % 15 != 0) {
+        return; 
+    }
     BeginDrawing();
     ClearBackground(BLACK);
     RenderStableArray(array, RAYWHITE);
     EndDrawing();
-    WaitTime(0.001); 
 }
 
 int main()
