@@ -152,21 +152,13 @@ void RenderStableArray(int array[1000], Color color)
 {
         int i;
         float posX = 0;
-        float recSpace = 1.2;
-        Rectangle recs[1000] = { 0 };
-        array = genVector();
+        float recSpace = 1.2f;
         for (i = 0; i < 1000; i++) 
         {
-                recs[i].x = posX;
-                recs[i].y = SCREEN_H-500;
-                recs[i].width = recSpace;
-                recs[i].height = array[i]/2;
-                posX = posX + recSpace;
-        }
-        
-        for (i = 0; i < 1000; i++)
-        {
-                DrawRectangleV((Vector2){ recs[i].x, recs[i].y }, (Vector2){ recs[i].width, recs[i].height }, color);
+                float height = array[i] / 2.0f;
+                float posY = SCREEN_H - height;
+                DrawRectangleV((Vector2){ posX, posY }, (Vector2){ recSpace, height }, color);
+                posX += recSpace;
         }
 }
 
