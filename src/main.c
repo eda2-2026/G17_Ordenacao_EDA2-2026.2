@@ -164,6 +164,14 @@ void RenderStableArray(int array[1000], Color color)
         }
 }
 
+void AtualizaEcraOrdenacao(int array[1000]) {
+    BeginDrawing();
+    ClearBackground(BLACK);
+    RenderStableArray(array, RAYWHITE);
+    EndDrawing();
+    WaitTime(0.001); 
+}
+
 int main()
 {
         InitWindow(SCREEN_W, SCREEN_H, "Algoritmos de ordenaçao");
