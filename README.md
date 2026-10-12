@@ -45,8 +45,8 @@ git clone https://github.com/eda2-2026/G17_Ordenacao_EDA2-2026.2.git
 
 1. Rodando o arquivo "build.sh":
 
-*   
-*   
+*   <img src="https://github.com/user-attachments/assets/cfb35571-36ca-4c88-90a5-62df5db3c13c" width="500">
+*   <img src="https://github.com/user-attachments/assets/7b9cca59-1f1a-424d-9ce1-cdd0aa93d214" width="500"> 
 
 2. Rodando o arquivo "run.sh":
    
