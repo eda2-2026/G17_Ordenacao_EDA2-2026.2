@@ -73,4 +73,4 @@ git clone https://github.com/eda2-2026/G17_Ordenacao_EDA2-2026.2.git
 
 # Link para o Vídeo do Trabalho
 
-* 
+* https://youtu.be/s8Ju1TbTlhg
